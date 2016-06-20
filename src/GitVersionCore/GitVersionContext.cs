@@ -48,6 +48,11 @@
 
             if (currentBranch.IsDetachedHead())
             {
+				Logger.WriteInfo (string.Format("Detached head - searching for {0}", CurrentCommit));
+				Logger.WriteInfo ("Searching branches...");
+				foreach (var branch in repository.Branches) {
+					Logger.WriteInfo (branch.CanonicalName);
+				}
                 CurrentBranch = CurrentCommit.GetBranchesContainingCommit(repository, repository.Branches.ToList(), OnlyEvaluateTrackedBranches).OnlyOrDefault() ?? currentBranch;
             }
             else
