@@ -194,7 +194,9 @@ namespace GitVersion
 
         public static bool IsDetachedHead(this Branch branch)
         {
-            return branch.CanonicalName.Equals("(no branch)", StringComparison.OrdinalIgnoreCase);
+			var result = branch.CanonicalName.Equals ("(no branch)", StringComparison.OrdinalIgnoreCase);
+			Logger.WriteInfo (string.Format("Branch '{0}' {1} detached", branch.CanonicalName, result ? "is" : "is not"));
+			return result;
         }
 
         public static string GetRepositoryDirectory(this IRepository repository, bool omitGitPostFix = true)
