@@ -11,12 +11,18 @@
     {
         readonly Config configuration;
 
+		static Branch LogAndReturnHead (IRepository repository)
+		{
+			Logger.WriteInfo (string.Format("Current branch from head of repo: {0}", repository.Head));
+			return repository.Head;
+		}
+
         public GitVersionContext(IRepository repository, Config configuration, bool isForTrackingBranchOnly = true, string commitId = null)
-            : this(repository, repository.Head, configuration, isForTrackingBranchOnly, commitId)
+			: this(repository, LogAndReturnHead(repository), configuration, isForTrackingBranchOnly, commitId)
         {
         }
 
-        public GitVersionContext(IRepository repository, Branch currentBranch, Config configuration, bool onlyEvaluateTrackedBranches = true, string commitId = null)
+		public GitVersionContext(IRepository repository, Branch currentBranch, Config configuration, bool onlyEvaluateTrackedBranches = true, string commitId = null)
         {
             Repository = repository;
             this.configuration = configuration;
