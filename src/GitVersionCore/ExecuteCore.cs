@@ -109,8 +109,9 @@ namespace GitVersion
             {
 				Logger.WriteInfo (string.Format ("Initializing Repository at {0}", gitDirectory));
                 var repository = new Repository(gitDirectory);
+				Logger.WriteInfo (string.Format ("At repo init: refs/HEAD is a {0} at {1} ({2})", repository.Refs.Head.GetType (), repository.Refs.Head.TargetIdentifier, repository.Refs.Head.ResolveToDirectReference ().Target.Sha));
 
-                var branch = repository.Head;
+				var branch = repository.Head;
 				Logger.WriteInfo (string.Format ("Current branch from head of repo at init: {0}", branch));
 				if (branch.Tip == null)
                 {
