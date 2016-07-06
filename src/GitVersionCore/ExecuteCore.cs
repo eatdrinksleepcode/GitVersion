@@ -107,14 +107,16 @@ namespace GitVersion
         {
             try
             {
+				Logger.WriteInfo (string.Format ("Initializing Repository at {0}", gitDirectory));
                 var repository = new Repository(gitDirectory);
 
                 var branch = repository.Head;
-                if (branch.Tip == null)
+				Logger.WriteInfo (string.Format ("Current branch from head of repo at init: {0}", branch));
+				if (branch.Tip == null)
                 {
                     throw new WarningException("No Tip found. Has repo been initialized?");
                 }
-                return repository;
+				return repository;
             }
             catch (Exception exception)
             {
