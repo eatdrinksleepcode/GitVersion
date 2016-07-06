@@ -42,6 +42,7 @@ namespace GitVersion
             {
                 if (normaliseGitDirectory)
                 {
+					Logger.WriteInfo (string.Format ("Normalizing git directory with noFetch = {0}", noFetch));
                     GitRepositoryHelper.NormalizeGitDirectory(GetDotGitDirectory(), authentication, noFetch, currentBranch);
                 }
                 return;
