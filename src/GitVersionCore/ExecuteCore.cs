@@ -108,7 +108,13 @@ namespace GitVersion
             try
             {
 				Logger.WriteInfo (string.Format ("Initializing Repository at {0}", gitDirectory));
-                var repository = new Repository(gitDirectory);
+				if (System.IO.File.Exists (System.IO.Path.Combine (gitDirectory, "HEAD"))) {
+					Logger.WriteInfo (string.Format ("HEAD = {0}", System.IO.File.ReadAllText (System.IO.Path.Combine (gitDirectory, "HEAD"))));
+				}
+				if (System.IO.File.Exists (System.IO.Path.Combine (gitDirectory, "FETCH_HEAD"))) {
+					Logger.WriteInfo (string.Format ("FETCH_HEAD = {0}", System.IO.File.ReadAllText (System.IO.Path.Combine (gitDirectory, "FETCH_HEAD"))));
+				}
+				var repository = new Repository(gitDirectory);
 				Logger.WriteInfo (string.Format ("At repo init: refs/HEAD is a {0} at {1} ({2})", repository.Refs.Head.GetType (), repository.Refs.Head.TargetIdentifier, repository.Refs.Head.ResolveToDirectReference ().Target.Sha));
 
 				var branch = repository.Head;
