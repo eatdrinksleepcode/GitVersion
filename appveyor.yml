@@ -11,9 +11,9 @@ build_script:
   - cmd: nuget restore src/GitVersion.sln
   - cmd: npm i -g tfx-cli
 
-  - cmd: msbuild src/GitVersion.sln "/p:Configuration=%CONFIGURATION%;Platform=%PLATFORM%"
+  - cmd: msbuild src/GitVersion.sln "/p:Configuration=%CONFIGURATION%;Platform=%PLATFORM%" /verbosity:minimal /fileLogger
   - ps: .\build\NuGetCommandLineBuild\tools\GitVersion.exe /l console /output buildserver /updateAssemblyInfo
-  - cmd: msbuild src/GitVersion.sln "/p:Configuration=%CONFIGURATION%;Platform=%PLATFORM%"
+  - cmd: msbuild src/GitVersion.sln "/p:Configuration=%CONFIGURATION%;Platform=%PLATFORM%" /verbosity:minimal /fileLogger
 
   - cmd: appveyor PushArtifact "build\NuGetExeBuild\GitVersion.Portable.%GitVersion_NuGetVersion%.nupkg"
 
