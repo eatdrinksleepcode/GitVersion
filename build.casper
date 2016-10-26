@@ -1,0 +1,5 @@
+import Casper.Solution;
+
+task Build
+
+ConfigureFromSolution('src/GitVersion.sln')
